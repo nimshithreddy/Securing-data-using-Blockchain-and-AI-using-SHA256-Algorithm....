@@ -141,7 +141,7 @@ def PatientLogin(request):
     if request.method == 'POST':
       pid = request.POST.get('t1', False)
       strdata = '<table border=1 align=center width=100%><tr><th>Patient ID</th><th>Patient Name</th><th>Age</th><th>Problem Description</th><th>Profile Date</th><th>Access Control</th><th>Gender</th><th>Contact No</th><th>Address</th><th>Block Chain Hashcode</th><th>Revenue</th></th></tr><tr>'
-      con = pymysql.connect(host='127.0.0.1',port = 3308,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
+      con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
       with con:
           cur = con.cursor()
           cur.execute("select * FROM patients")
@@ -167,7 +167,7 @@ def HospitalLogin(request):
        return render(request, 'Hospital.html', context)
 
 def updateRevenue(value):
-    db_connection = pymysql.connect(host='127.0.0.1',port = 3308,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
+    db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
     db_cursor = db_connection.cursor()
     db_cursor.execute("update patients set revenue=revenue+0.5 where patient_id='"+value+"'")
     db_connection.commit()     
@@ -180,7 +180,7 @@ def PatientDataAccess(request):
           for line in file:
              user = line.strip('\n')
       strdata = '<table border=1 align=center width=100%><tr><th>Patient ID</th><th>Patient Name</th><th>Age</th><th>Problem Description</th><th>Profile Date</th><th>Access Control</th><th>Gender</th><th>Contact No</th></th></tr><tr>'
-      con = pymysql.connect(host='127.0.0.1',port = 3308,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
+      con = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
       print("select * FROM patients where problem_desc like '%"+search+"%'")
       with con:
           cur = con.cursor()
@@ -215,7 +215,7 @@ def CreateProfileData(request):
       for i in range(len(access_list)):
          access+=access_list[i]+" "
       access = access.strip()
-      db_connection = pymysql.connect(host='127.0.0.1',port = 3308,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
+      db_connection = pymysql.connect(host='127.0.0.1',port = 3306,user = 'root', password = 'root', database = 'SecuringData',charset='utf8')
       with db_connection:
           cur = db_connection.cursor()
           cur.execute("select count(*) FROM patients")
